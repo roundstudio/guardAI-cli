@@ -1,15 +1,11 @@
-import DashboardTable from "./components/cameraTable";
-import Dashboard from "./components/dashboard";
-// import LoginForm from "./components/login";
+import Router from "./routes/section";
 
-function App() {
+const App = () => {
   return (
     <>
-      {/* <LoginForm /> */}
-      {/* <Dashboard /> */}
-      <DashboardTable />
+      <Router />
     </>
   );
-}
+};
 
 export default App;
