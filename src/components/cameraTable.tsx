@@ -1,10 +1,11 @@
 import React from "react";
 
 interface DashboardTableProps {
-  // You can add any props if you want to make this component reusable
+  // Using object type instead of empty interface
+  data?: object;
 }
 
-const DashboardTable: React.FC<DashboardTableProps> = () => {
+const CameraTable: React.FC<DashboardTableProps> = () => {
   return (
     <div dir="rtl" className="p-6">
       {/* Add Button */}
@@ -50,4 +51,4 @@ const DashboardTable: React.FC<DashboardTableProps> = () => {
   );
 };
 
-export default DashboardTable;
+export default CameraTable;

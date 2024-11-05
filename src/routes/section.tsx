@@ -1,11 +1,10 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 
-// Lazy load pages
 const LoginPage = lazy(() => import("../components/login"));
 const DashboardPage = lazy(() => import("../components/dashboard"));
+const CameraPage = lazy(() => import("../components/cameraTable"));
 
-// Fallback component
 
 export default function Router() {
   const routes = useRoutes([
@@ -18,10 +17,20 @@ export default function Router() {
       ),
     },
     {
-      path: "/dashboard",
+      path: "/",
       element: (
         <Suspense>
           <DashboardPage />
+        </Suspense>
+      ),
+      
+    },
+ 
+    {
+      path: "/camera",
+      element: (
+        <Suspense>
+          <CameraPage />
         </Suspense>
       ),
     },

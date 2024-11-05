@@ -1,21 +1,30 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 interface SidebarItem {
   label: string;
   icon: JSX.Element;
+  route?: string;
 }
 
 const sidebarItems: SidebarItem[] = [
-  { label: "داشبورد", icon: <i className="fas fa-tachometer-alt" /> },
-  { label: "اطلاع رسانی", icon: <i className="fas fa-user" /> },
-  { label: "هشدار", icon: <i className="fas fa-cogs" /> },
-  { label: "تنظیمات", icon: <i className="fas fa-cogs" /> },
+  { label: "داشبورد", icon: <i className="fas fa-tachometer-alt" />, route: "/" },
+  { label: "دوربین", icon: <i className="fas fa-camera" />, route: "/camera" },
+  { label: "اطلاع رسانی", icon: <i className="fas fa-bell" />, route: "/notifications" },
+  { label: "هشدار", icon: <i className="fas fa-exclamation-triangle" />, route: "/alerts" },
+  { label: "تنظیمات", icon: <i className="fas fa-cogs" />, route: "/settings" },
+  { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
 ];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const navigate = useNavigate();
+
+  const handleNavigation = (route?: string) => {
+    if (route) navigate(route);
+  };
 
   return (
     <motion.div
@@ -28,15 +37,15 @@ const Sidebar = () => {
       )}
     >
       <div className="flex justify-between items-center p-4">
-        <h2
-          className={clsx("text-white text-2xl font-bold", { hidden: !isOpen })}
-        >
+        <h2 className={clsx("text-white text-2xl font-bold", { hidden: !isOpen })}>
           میزکار
         </h2>
-        <button onClick={() => setIsOpen(!isOpen)} className="text-white">
-          <i
-            className={isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"}
-          />
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-white"
+          title={isOpen ? "بستن منو" : "باز کردن منو"}
+        >
+          <i className={isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"} />
         </button>
       </div>
       <ul className="flex-grow">
@@ -44,10 +53,13 @@ const Sidebar = () => {
           <motion.li
             key={item.label}
             whileHover={{ scale: 1.1 }}
-            className="p-4 text-white flex items-center cursor-pointer hover:bg-gray-700"
+            onClick={() => handleNavigation(item.route)}
+            className="p-4 text-white cursor-pointer hover:bg-gray-700"
           >
-            <div className="ml-4 text-xl">{item.icon}</div>
-            <span className={clsx({ hidden: !isOpen })}>{item.label}</span>
+            <div className="flex items-center">
+              <div className="ml-4 text-xl">{item.icon}</div>
+              <span className={clsx({ hidden: !isOpen })}>{item.label}</span>
+            </div>
           </motion.li>
         ))}
       </ul>
@@ -55,44 +67,4 @@ const Sidebar = () => {
   );
 };
 
-const DashboardContent = () => {
-  return (
-    <div className="mr-72 p-10 text-right">
-      <h1 className="text-3xl font-bold mb-6">Welcome to the Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <motion.div
-          className="p-4 bg-white shadow-md rounded-lg"
-          whileHover={{ scale: 1.05 }}
-        >
-          <h2 className="text-xl font-semibold mb-2">Overview</h2>
-          <p>Here is an overview of your account.</p>
-        </motion.div>
-        <motion.div
-          className="p-4 bg-white shadow-md rounded-lg"
-          whileHover={{ scale: 1.05 }}
-        >
-          <h2 className="text-xl font-semibold mb-2">Stats</h2>
-          <p>Your latest statistics can be found here.</p>
-        </motion.div>
-        <motion.div
-          className="p-4 bg-white shadow-md rounded-lg"
-          whileHover={{ scale: 1.05 }}
-        >
-          <h2 className="text-xl font-semibold mb-2">Settings</h2>
-          <p>Adjust your settings to suit your needs.</p>
-        </motion.div>
-      </div>
-    </div>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <div className="h-screen bg-gray-100" dir="rtl">
-      <Sidebar />
-      <DashboardContent />
-    </div>
-  );
-};
-
-export default Dashboard;
+export default Sidebar;
