@@ -10,10 +10,22 @@ interface SidebarItem {
 }
 
 const sidebarItems: SidebarItem[] = [
-  { label: "داشبورد", icon: <i className="fas fa-tachometer-alt" />, route: "/" },
+  {
+    label: "داشبورد",
+    icon: <i className="fas fa-tachometer-alt" />,
+    route: "/stream",
+  },
   { label: "دوربین", icon: <i className="fas fa-camera" />, route: "/camera" },
-  { label: "اطلاع رسانی", icon: <i className="fas fa-bell" />, route: "/notifications" },
-  { label: "هشدار", icon: <i className="fas fa-exclamation-triangle" />, route: "/alerts" },
+  {
+    label: "اطلاع رسانی",
+    icon: <i className="fas fa-bell" />,
+    route: "/notifications",
+  },
+  {
+    label: "هشدار",
+    icon: <i className="fas fa-exclamation-triangle" />,
+    route: "/alerts",
+  },
   { label: "تنظیمات", icon: <i className="fas fa-cogs" />, route: "/settings" },
   { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
 ];
@@ -37,7 +49,9 @@ const Sidebar = () => {
       )}
     >
       <div className="flex justify-between items-center p-4">
-        <h2 className={clsx("text-white text-2xl font-bold", { hidden: !isOpen })}>
+        <h2
+          className={clsx("text-white text-2xl font-bold", { hidden: !isOpen })}
+        >
           میزکار
         </h2>
         <button
@@ -45,7 +59,9 @@ const Sidebar = () => {
           className="text-white"
           title={isOpen ? "بستن منو" : "باز کردن منو"}
         >
-          <i className={isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"} />
+          <i
+            className={isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"}
+          />
         </button>
       </div>
       <ul className="flex-grow">
