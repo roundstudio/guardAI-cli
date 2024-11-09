@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 
-const LoginPage = lazy(() => import("../components/login"));
-const DashboardPage = lazy(() => import("../components/dashboard"));
-const CameraPage = lazy(() => import("../components/cameraTable"));
-const StreamPage = lazy(() => import("../components/livestream"));
+const LoginPage = lazy(() => import("../Module/login").then((module) => ({ default: module.LoginPage })));
+const StreamPage = lazy(() => import("../Module/stream").then((module) => ({ default: module.StreamPage })));
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -17,23 +16,6 @@ export default function Router() {
       ),
     },
     {
-      path: "/",
-      element: (
-        <Suspense>
-          <DashboardPage />
-        </Suspense>
-      ),
-    },
-
-    {
-      path: "/camera",
-      element: (
-        <Suspense>
-          <CameraPage />
-        </Suspense>
-      ),
-    },
-    {
       path: "/stream",
       element: (
         <Suspense>
@@ -41,6 +23,7 @@ export default function Router() {
         </Suspense>
       ),
     },
+
   ]);
 
   return routes;
