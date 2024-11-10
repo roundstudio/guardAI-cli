@@ -1,0 +1,1 @@
+export { default as CameraPage } from './camera.page';
