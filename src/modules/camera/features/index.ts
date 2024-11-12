@@ -1,2 +1,2 @@
 export { default as CameraTable } from "./camera.table";
-export { default as CameraToolbar } from "./camera.toolbar";
+export { default as CameraForm } from "./camera.form";

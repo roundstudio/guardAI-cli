@@ -17,16 +17,15 @@ const sidebarItems: SidebarItem[] = [
   },
   { label: "دوربین", icon: <i className="fas fa-camera" />, route: "/camera" },
   {
-    label: "اطلاع رسانی",
+    label: "gpio",
     icon: <i className="fas fa-bell" />,
-    route: "/notifications",
+    route: "/gpio",
   },
   {
-    label: "هشدار",
-    icon: <i className="fas fa-exclamation-triangle" />,
-    route: "/alerts",
+    label: "تشخیص اشیا",
+    icon: <i className="fas fa-bell" />,
+    route: "/object-detection",
   },
-  { label: "تنظیمات", icon: <i className="fas fa-cogs" />, route: "/settings" },
   { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
 ];
 

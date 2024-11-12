@@ -20,6 +20,8 @@ api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    console.warn("Access token is missing.");
   }
   return config;
 });
@@ -37,7 +39,7 @@ api.interceptors.response.use(
       try {
         // تلاش برای دریافت توکن جدید
         const refreshToken = localStorage.getItem("refresh_token");
-        const response = await axios.post(`${on_run}/auth/refresh/`, {
+        const response = await axios.post(`${on_run}api/token/refresh/`, {
           refresh: refreshToken
         });
         
