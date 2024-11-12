@@ -1,53 +1,85 @@
-import { useState } from 'react';
-import { Button, TextField, Box, Typography, FormControl, FormControlLabel, Checkbox } from '@mui/material';
-import { Camera } from '../types';
+import { useState, useEffect } from "react";
+import {
+  Button,
+  TextField,
+  Box,
+  Typography,
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+import { Camera } from "../types";
+import { useCameraCreate, useCameraUpdate } from "../hooks";
+import { toast, ToastContainer } from "react-toastify";
 
+const CameraForm = ({
+  initialData,
+  onClose,
+}: {
+  initialData?: Camera;
+  onClose: () => void;
+}) => {
+  const [formData, setFormData] = useState<Camera>(
+    initialData || {
+      name: "",
+      ip: "",
+      port: 0,
+      username: "",
+      password: "",
+      is_active: true,
+      path: "",
+      description: "",
+    }
+  );
 
-const CameraForm = ({ initialData, onClose }: { initialData?: Camera; onClose: () => void }) => {
-  const [formData, setFormData] = useState<Camera>(initialData || {
-    name: '',
-    ip: '',
-    port: 0,
-    username: '',
-    password: '',
-    is_active: true,
-    path: '',
-    description: ''
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
+  const { mutate: createCamera, isPending: isCreating, isSuccess: isCreateSuccess } = useCameraCreate();
+  const { mutate: updateCamera, isPending: isUpdating, isSuccess: isUpdateSuccess } = useCameraUpdate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // اینجا می‌توانید اطلاعات فرم را به سرور ارسال کنید
-    console.log('فرم ارسال شد:', formData);
-    onClose(); // بستن مدال پس از ارسال فرم
+    if (initialData?.id) {
+      updateCamera(formData);
+    } else {
+      createCamera(formData);
+    }
   };
 
+  useEffect(() => {
+    if (isCreateSuccess || isUpdateSuccess) {
+      toast.success("ثبت دوربین با موفقیت انجام شد.");
+      onClose();
+    }
+  }, [isCreateSuccess, isUpdateSuccess]);
+
   return (
-    <Box 
-        component="form"  
-        onSubmit={handleSubmit} 
-        sx={{ 
-            maxWidth: 500, 
-            mx: 'auto', 
-            p: 3, 
-            bgcolor: 'background.paper', // پس‌زمینه
-            borderRadius: 2, // گرد کردن گوشه‌ها
-            boxShadow: 3, // سایه برای عمق بیشتر
-            display: 'flex', // استفاده از flex
-            flexDirection: 'column', // چیدمان عمودی
-            justifyContent: 'center', // مرکز کردن محتوا
-            mt: 5, // فاصله از بالا
-            mb: 5  // فاصله از پایین
-        }}
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        maxWidth: 500,
+        mx: "auto",
+        p: 2,
+        bgcolor: "background.paper",
+        borderRadius: 2,
+        boxShadow: 3,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        mt: 2,
+        mb: 5,
+      }}
     >
+      <ToastContainer autoClose={3000} />
       <Typography variant="h5" sx={{ mb: 3 }}>
         افزودن دوربین جدید
       </Typography>
@@ -69,6 +101,7 @@ const CameraForm = ({ initialData, onClose }: { initialData?: Camera; onClose: (
           value={formData.ip}
           onChange={handleChange}
           required
+          helperText="لطفاً یک آدرس IP معتبر وارد کنید."
         />
       </FormControl>
 
@@ -109,10 +142,24 @@ const CameraForm = ({ initialData, onClose }: { initialData?: Camera; onClose: (
             <Checkbox
               name="is_active"
               checked={formData.is_active}
-              onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  is_active: e.target.checked,
+                }))
+              }
             />
           }
           label="فعال بودن"
+        />
+      </FormControl>
+
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <TextField
+          label="مسیر"
+          name="path"
+          value={formData.path}
+          onChange={handleChange}
         />
       </FormControl>
 
@@ -123,28 +170,28 @@ const CameraForm = ({ initialData, onClose }: { initialData?: Camera; onClose: (
           value={formData.description}
           onChange={handleChange}
           multiline
-          rows={4}
+          rows={2}
         />
       </FormControl>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-
-        <Button 
-            type="submit" 
-            variant="contained" 
-            
-        >
-            {initialData ? 'ویرایش دوربین' : 'ثبت دوربین'}
-        </Button>
-        <Button 
-            variant="outlined" 
-            color='warning'
-
-            onClick={onClose} // بستن مدال
-            sx={{ mb: 1 }} // فاصله پایین دکمه لغو
-        >
-            لغو
-        </Button>
+      <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
+        {isCreating || isUpdating ? (
+          <Typography>در حال ارسال...</Typography>
+        ) : (
+          <>
+            <Button type="submit" variant="contained">
+              {initialData ? "ویرایش دوربین" : "ثبت دوربین"}
+            </Button>
+            <Button
+              variant="outlined"
+              color="warning"
+              onClick={onClose} 
+              sx={{ mb: 1 }} 
+            >
+              لغو
+            </Button>
+          </>
+        )}
       </Box>
     </Box>
   );

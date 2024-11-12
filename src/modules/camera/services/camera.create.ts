@@ -1,12 +1,21 @@
-
-
 import api from "../../../config/api";
 import { Camera } from "../types";
+import { toast } from 'react-toastify';
 
 
-const getCamerasCreate = async (): Promise<Camera[]> => {
-    const response = await api.post<Camera[]>(`api/cameras/`);
-    return response.data;
+
+const createCamera = async (cameraData: Camera): Promise<Camera> => {
+    try {
+        const response = await api.post<Camera>(`api/cameras/`, cameraData);
+        return response.data;
+    } catch (error) {
+        if (error instanceof Error) {
+            toast.error("خطا در ایجاد دوربین: " + (error.message || "مشخص نشده"));
+        } else {
+            toast.error("خطا در ایجاد دوربین: مشخص نشده");
+        }
+        throw error;
+    }
 };
 
-export default getCamerasCreate;
+export default createCamera; 

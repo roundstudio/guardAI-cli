@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faRotate } from '@fortawesome/free-solid-svg-icons';
-import useCameraList from "../hook/useCameraList";
+import useCameraList from "../hooks/useCameraList";
 import CameraForm from './camera.form';
 
 import { useState } from 'react';

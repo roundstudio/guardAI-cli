@@ -1,16 +1,34 @@
-import { useCameraList } from "../hook";
-
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCameraDelete, useCameraList } from "../hooks";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import CameraForm from "./camera.form";
+import Modal from "@mui/material/Modal";
+import { useState } from "react";
+import { Camera } from "../types";
 
 
 const CameraTable = () => {
     const {data, isLoading, error} = useCameraList();
-    console.log(data);
-    
+    const { mutate: deleteCamera } = useCameraDelete();
+    const [open, setOpen] = useState(false);
+    const [selectedCamera, setSelectedCamera] = useState<Camera | undefined>(undefined);
+
+    const handleOpen = (camera: Camera) =>{
+        setSelectedCamera(camera);
+        setOpen(true)
+    };
+    const handleClose = () => setOpen(false);
+
+    const handleDelete = (id: number) => {
+        deleteCamera(id);
+    };
 
     if(isLoading) return <div>Loading...</div>;
     if(error) return <div>Error: {error.message}</div>;
 
     return(
+        <>
         <table className="w-full border-collapse border">
             <thead>
                 <tr className="bg-gray-100">
@@ -35,13 +53,20 @@ const CameraTable = () => {
                         <td className="border p-2">{camera.is_active ? "فعال" : "غیرفعال"}</td>
                         <td className="border p-2">{camera.description}</td>
                         <td className="border p-2">
-                            <button className="text-blue-500 hover:text-blue-700 ml-2">ویرایش</button>
-                            <button className="text-red-500 hover:text-red-700">حذف</button>
+                            <button onClick={() => handleOpen(camera)} className="text-blue-500 hover:text-blue-700 ml-2"><FontAwesomeIcon icon={faEdit} /></button>
+                            <button onClick={() => handleDelete(camera.id!)} className="text-red-500 hover:text-red-700"><FontAwesomeIcon icon={faTrash} /></button>
                         </td>
                     </tr>
                 ))}
             </tbody>
         </table>
+        <Modal open={open} onClose={handleClose}>
+                <div className="modal-content">
+                    <CameraForm initialData={selectedCamera} onClose={handleClose} />
+                </div>
+            </Modal>
+        </>
+
     )
 }
 
