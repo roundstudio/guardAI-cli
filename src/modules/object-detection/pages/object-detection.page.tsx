@@ -1,11 +1,15 @@
+import { Toolbar } from "../../../components";
 import DashboardLayout from "../../../layouts/dashboard.layout"
-
+import { ObjectDetectionForm, ObjectDetectionTable } from "../feature"
+import { useObjectDetectionList } from "../hooks";
 
 
 const ObjectDetectionPage = () => {
+    const {refetch}= useObjectDetectionList()
     return(
         <DashboardLayout>
-            <div>ObjectDetectionPage</div>
+            <Toolbar onAdd={ObjectDetectionForm} onRefresh={refetch} titleAdd="افزودن شیء جدید"/>
+            <ObjectDetectionTable/>
         </DashboardLayout>
     );
 }

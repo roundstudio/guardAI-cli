@@ -1,0 +1,1 @@
+export {default as AVAILABLE_OBJECTS} from './available-objects.config';

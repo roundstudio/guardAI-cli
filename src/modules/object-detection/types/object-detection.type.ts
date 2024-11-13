@@ -5,9 +5,9 @@ export interface ObjectType {
 }
 
 export interface UserObjectRequest {
-    id: number; // شناسه یکتا
+    id?: number; // شناسه یکتا
     name: string; // نام کاربر
-    objectTypes: ObjectType[]; // آرایه‌ای از نوع‌های شیء
+    object_types: ObjectType[]; // آرایه‌ای از نوع‌های شیء
     description?: string; // توضیحات (اختیاری)
     timestamp?: Date; // زمان درخواست
 }

@@ -9,7 +9,7 @@ const useObjectDetectionList = () => {
         queryKey: ["object-detection"],
         queryFn: getObjectDetectionList,
     });
-    return { data, isPending, isSuccess, refetch };
+    return { data, isPending, isSuccess, refetch ,};
 }
 
 export default useObjectDetectionList;
