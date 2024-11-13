@@ -26,6 +26,7 @@ const sidebarItems: SidebarItem[] = [
     icon: <i className="fas fa-bell" />,
     route: "/object-detection",
   },
+  { label: "قوانین", icon: <i className="fas fa-bell" />, route: "/rule" },
   { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
 ];
 
@@ -39,7 +40,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <div style={{ width: isOpen ? '250px' : '80px' }} className="flex-shrink-0" />
+      <div
+        style={{ width: isOpen ? "250px" : "80px" }}
+        className="flex-shrink-0"
+      />
       <motion.div
         initial={{ width: isOpen ? 250 : 80 }}
         animate={{ width: isOpen ? 250 : 80 }}
@@ -51,7 +55,9 @@ const Sidebar = () => {
       >
         <div className="flex justify-between items-center p-4">
           <h2
-            className={clsx("text-white text-2xl font-bold", { hidden: !isOpen })}
+            className={clsx("text-white text-2xl font-bold", {
+              hidden: !isOpen,
+            })}
           >
             میزکار
           </h2>
@@ -61,7 +67,9 @@ const Sidebar = () => {
             title={isOpen ? "بستن منو" : "باز کردن منو"}
           >
             <i
-              className={isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"}
+              className={
+                isOpen ? "fas fa-chevron-right" : "fas fa-chevron-left"
+              }
             />
           </button>
         </div>

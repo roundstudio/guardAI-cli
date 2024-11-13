@@ -1,4 +1,4 @@
-export type Camera = {
+export interface Camera {
     id?: number;
     name: string;
     ip: string;
@@ -6,6 +6,6 @@ export type Camera = {
     username: string;
     password: string;
     is_active: boolean;
-    path: string;
-    description: string;
-}
+    path?: string | null;
+    description?: string | null;
+} 

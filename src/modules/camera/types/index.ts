@@ -1,1 +1,1 @@
-export * from "./cameras.type.ts";
+export * from "./camera.type";

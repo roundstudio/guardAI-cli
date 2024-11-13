@@ -6,6 +6,7 @@ const StreamPage = lazy(() => import("../modules/stream").then((module) => ({ de
 const CameraPage = lazy(() => import("../modules/camera").then((module) => ({ default: module.CameraPage })));
 const GpioPage = lazy(() => import("../modules/gpio").then((module) => ({ default: module.GpioPage })));
 const ObjectDetectionPage = lazy(() => import("../modules/object-detection").then((module) => ({ default: module.ObjectDetectionPage })));
+const RulePage = lazy(() => import("../modules/rule").then((module) => ({ default: module.RulePage })));
 
 export default function Router() {
   const routes = useRoutes([
@@ -46,6 +47,14 @@ export default function Router() {
       element: (
         <Suspense>
           <ObjectDetectionPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/rule",
+      element: (
+        <Suspense>
+          <RulePage />
         </Suspense>
       ),
     },
