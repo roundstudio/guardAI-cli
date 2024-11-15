@@ -1,12 +1,12 @@
 
 
-import { Rule } from "../types/rule.type";
+import { Rule, RuleSubmitData } from "../types/rule.type";
 import api from "../../../config/api";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 
-const ruleCreate = async (data: Rule): Promise<Rule> => {
-    const response = await api.post<Rule>("/rule", data);
+const ruleCreate = async (data: RuleSubmitData): Promise<Rule> => {
+    const response = await api.post<Rule>("api/rule/", data);
     try {
         toast.success("ثبت با موفقیت انجام شد");
         return response.data;

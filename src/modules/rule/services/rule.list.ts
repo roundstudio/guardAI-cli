@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 
 
 const ruleList = async (): Promise<Rule[]> => {
-    const response = await api.get<Rule[]>("/rule");
+    const response = await api.get<Rule[]>("api/rule/");
     try {
         return response.data;
     } catch (error) {

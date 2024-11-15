@@ -1,6 +1,5 @@
 import DashboardLayout from "../../../layouts/dashboard.layout";
-import GpioTable from "../features/gpio.table";
-import GpioForm from "../features/gpio.form";
+import {GpioForm, GpioTable} from "../features";
 import {Toolbar} from "../../../components";
 import {useGpioList} from "../hooks";
 

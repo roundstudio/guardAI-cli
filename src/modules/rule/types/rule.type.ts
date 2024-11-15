@@ -14,17 +14,17 @@ export interface Rule {
     updated_at?: string;
     
     // ارتباطات
-    camera?: Camera[];
-    object_types?: ObjectType[];
-    gpio?: Gpio[];
+    camera: Camera[];
+    object_types: ObjectType[];
+    gpio: Gpio[];
     
     // تنظیمات اصلی
     status?: RuleStatus;
     priority?: RulePriority;
     
     // تنظیمات زمانی
-    start_time?: string | null;
-    end_time?: string | null;
+    start_time?: string;
+    end_time?: string;
     
     // تنظیمات تشخیص
     confidence_threshold?: number;
@@ -47,3 +47,9 @@ export const PRIORITY_CHOICES: Record<RulePriority, string> = {
     4: 'بحرانی'
 };
 
+export interface RuleSubmitData extends Omit<Rule, 'camera' | 'object_types' | 'gpio'> {
+    id?: number;
+    camera: number[];
+    object_types: number[];
+    gpio: number[];
+  }

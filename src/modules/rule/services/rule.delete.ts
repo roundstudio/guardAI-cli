@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 
 
 const ruleDelete = async (id: number): Promise<void> => {
-    const response = await api.delete(`/rule/${id}`);
+    const response = await api.delete(`api/rule/${id}/`);
     try {
         toast.success("حذف با موفقیت انجام شد");
         return response.data;

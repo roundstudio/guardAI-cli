@@ -5,11 +5,11 @@ import { ruleList } from "../services";
 
 
 const useRuleList = () => {
-    const { data, isPending, error } = useQuery({
+    const { data, isPending, error, refetch} = useQuery({
         queryKey: ["rule-list"],
         queryFn: ruleList,
     });
-    return { data, isPending, error };
+    return { data, isPending, error, refetch };
 }
 
 export default useRuleList;
