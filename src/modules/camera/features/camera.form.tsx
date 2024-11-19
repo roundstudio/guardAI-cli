@@ -42,8 +42,16 @@ const CameraForm = ({
     }));
   };
 
-  const { mutate: createCamera, isPending: isCreating, isSuccess: isCreateSuccess } = useCameraCreate();
-  const { mutate: updateCamera, isPending: isUpdating, isSuccess: isUpdateSuccess } = useCameraUpdate();
+  const {
+    mutate: createCamera,
+    isPending: isCreating,
+    isSuccess: isCreateSuccess,
+  } = useCameraCreate();
+  const {
+    mutate: updateCamera,
+    isPending: isUpdating,
+    isSuccess: isUpdateSuccess,
+  } = useCameraUpdate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,12 +88,13 @@ const CameraForm = ({
       }}
     >
       <ToastContainer autoClose={3000} />
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography variant="h6" sx={{ mb: 3 }}>
         افزودن دوربین جدید
       </Typography>
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="نام دوربین"
           name="name"
           value={formData.name}
@@ -96,6 +105,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="ای پی دوربین"
           name="ip"
           value={formData.ip}
@@ -107,6 +117,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="پورت"
           name="port"
           value={formData.port}
@@ -117,6 +128,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="نام کاربری"
           name="username"
           value={formData.username}
@@ -127,6 +139,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="گذرواژه"
           name="password"
           type="password"
@@ -156,6 +169,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
+          size="small"
           label="مسیر"
           name="path"
           value={formData.path}
@@ -165,6 +179,7 @@ const CameraForm = ({
 
       <FormControl fullWidth sx={{ mb: 3 }}>
         <TextField
+          size="small"
           label="توضیحات"
           name="description"
           value={formData.description}
@@ -185,8 +200,8 @@ const CameraForm = ({
             <Button
               variant="outlined"
               color="warning"
-              onClick={onClose} 
-              sx={{ mb: 1 }} 
+              onClick={onClose}
+              sx={{ mb: 1 }}
             >
               لغو
             </Button>
