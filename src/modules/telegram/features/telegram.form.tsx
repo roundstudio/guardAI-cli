@@ -5,6 +5,8 @@ import {
   Box,
   Typography,
   FormControl,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import { Telegram } from "../types";
 import { useTelegramCreate, useTelegramUpdate } from "../hooks";
@@ -23,7 +25,7 @@ const TelegramForm = ({
       name: "",
       token: "",
       chat_id: "",
-      status: "",
+      status: true,
       created_at: "",
     }
   );
@@ -35,6 +37,13 @@ const TelegramForm = ({
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      status: e.target.checked,
     }));
   };
 
@@ -110,6 +119,19 @@ const TelegramForm = ({
           value={formData.chat_id}
           onChange={handleChange}
           required
+        />
+      </FormControl>
+
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={formData.status}
+              onChange={handleCheckboxChange}
+              name="status"
+            />
+          }
+          label="فعال"
         />
       </FormControl>
 

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const listTelegrams = async (): Promise<Telegram[]> => {
     try {
-        const response = await api.get<Telegram[]>('api/telegrams/');
+        const response = await api.get<Telegram[]>('api/telegram/');
         return response.data;
     } catch (error) {
         if (error instanceof Error) {

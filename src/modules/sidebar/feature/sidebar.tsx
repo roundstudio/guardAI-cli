@@ -26,6 +26,16 @@ const sidebarItems: SidebarItem[] = [
     icon: <i className="fas fa-bell" />,
     route: "/object-detection",
   },
+  {
+    label: "تلگرام",
+    icon: <i className="fas fa-bell" />,
+    route: "/telegram",
+  },
+  {
+    label: "تماس",
+    icon: <i className="fas fa-bell" />,
+    route: "/contact",
+  },
   { label: "قوانین", icon: <i className="fas fa-bell" />, route: "/rule" },
   { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
 ];

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const deleteTelegram = async (id: number): Promise<void> => {
     try {
-        await api.delete(`api/telegrams/${id}/`);
+        await api.delete(`api/telegram/${id}/`);
         toast.success("تلگرام با موفقیت حذف شد");
     } catch (error) {
         if (error instanceof Error) {

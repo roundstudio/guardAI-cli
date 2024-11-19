@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const updateTelegram = async (telegramData: Telegram): Promise<Telegram> => {
     try {
-        const response = await api.put<Telegram>(`api/telegrams/${telegramData.id}/`, telegramData);
+        const response = await api.put<Telegram>(`api/telegram/${telegramData.id}/`, telegramData);
         return response.data;
     } catch (error) {
         if (error instanceof Error) {

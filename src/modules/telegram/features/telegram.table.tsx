@@ -7,8 +7,8 @@ import { useState } from "react";
 import { Telegram } from "../types";
 
 const TelegramTable = () => {
-    const { data, isLoading, error } = useTelegramList();
-    const { mutate: deleteTelegram } = useTelegramDelete();
+    const { data, isPending, error } = useTelegramList();
+    const { mutate } = useTelegramDelete();
     const [open, setOpen] = useState(false);
     const [selectedTelegram, setSelectedTelegram] = useState<Telegram | undefined>(undefined);
 
@@ -19,10 +19,10 @@ const TelegramTable = () => {
     const handleClose = () => setOpen(false);
 
     const handleDelete = (id: number) => {
-        deleteTelegram(id);
+        mutate(id);
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isPending) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (

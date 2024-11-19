@@ -7,6 +7,8 @@ const CameraPage = lazy(() => import("../modules/camera").then((module) => ({ de
 const GpioPage = lazy(() => import("../modules/gpio").then((module) => ({ default: module.GpioPage })));
 const ObjectDetectionPage = lazy(() => import("../modules/object-detection").then((module) => ({ default: module.ObjectDetectionPage })));
 const RulePage = lazy(() => import("../modules/rule").then((module) => ({ default: module.RulePage })));
+const TelegramPage = lazy(() => import("../modules/telegram").then((module) => ({ default: module.TelegramPage })));
+const ContactPage = lazy(() => import("../modules/contact").then((module) => ({ default: module.ContactPage })));
 
 export default function Router() {
   const routes = useRoutes([
@@ -55,6 +57,22 @@ export default function Router() {
       element: (
         <Suspense>
           <RulePage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/telegram",
+      element: (
+        <Suspense>
+          <TelegramPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/contact",
+      element: (
+        <Suspense>
+          <ContactPage />
         </Suspense>
       ),
     },

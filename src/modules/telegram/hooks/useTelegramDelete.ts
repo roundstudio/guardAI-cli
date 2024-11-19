@@ -1,33 +1,17 @@
-import { useState } from 'react';
 import deleteTelegram from '../services/telegram.delete';
+import { useMutation } from '@tanstack/react-query';
 
-interface UseTelegramDeleteReturn {
-    isDeleting: boolean;
-    error: string | null;
-    deleteTelegramItem: (id: number) => Promise<void>;
-}
 
-const useTelegramDelete = (): UseTelegramDeleteReturn => {
-    const [isDeleting, setIsDeleting] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
 
-    const deleteTelegramItem = async (id: number) => {
-        try {
-            setIsDeleting(true);
-            setError(null);
-            await deleteTelegram(id);
-        } catch (err) {
-            setError('خطا در حذف تلگرام');
-            console.error(err);
-        } finally {
-            setIsDeleting(false);
-        }
-    };
+const useTelegramDelete = ()=> {
+    const {mutate, isPending, error} = useMutation({
+        mutationFn: deleteTelegram,
+        mutationKey: ["delete-telegram"]
+    })
+
 
     return {
-        isDeleting,
-        error,
-        deleteTelegramItem
+        mutate, isPending, error
     };
 };
 

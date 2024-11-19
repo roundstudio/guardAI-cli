@@ -1,35 +1,15 @@
-import { useState, useEffect } from 'react';
-import { Telegram } from '../types';
+import { useQuery } from '@tanstack/react-query';
 import listTelegrams from '../services/telegram.list';
 
-export const useTelegramList = () => {
-    const [telegrams, setTelegrams] = useState<Telegram[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
 
-    const fetchTelegrams = async () => {
-        try {
-            setLoading(true);
-            const data = await listTelegrams();
-            setTelegrams(data);
-            setError(null);
-        } catch (err) {
-            console.error(err);
-            setError('خطا در دریافت لیست تلگرام‌ها');
-        } finally {
-            setLoading(false);
-        }
-    };
+const useTelegramList = () =>{
+    const {data, isPending, refetch, error} = useQuery({
+        queryKey: ["telegrams"],
+        queryFn: listTelegrams
+    })
 
-    useEffect(() => {
-        fetchTelegrams();
-    }, []);
+    return {data, isPending, refetch, error}
+}
 
-    return {
-        telegrams,
-        loading,
-        error,
-        refetch: fetchTelegrams
-    };
-};
+
 export default useTelegramList;
