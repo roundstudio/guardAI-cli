@@ -18,4 +18,4 @@ const createCamera = async (cameraData: Camera): Promise<Camera> => {
     }
 };
 
-export default createCamera; 
+export default createCamera;

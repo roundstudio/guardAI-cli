@@ -10,8 +10,7 @@ import {
   InputLabel,
   Slider,
   OutlinedInput,
-  FormControlLabel,
-  Checkbox,
+
 } from "@mui/material";
 import {
   Rule,
@@ -116,7 +115,7 @@ const RuleForm = ({
       toast.success("عملیات با موفقیت انجام شد");
       onClose();
     }
-  }, [isCreateSuccess, isUpdateSuccess]);
+  }, [isCreateSuccess, isUpdateSuccess, onClose]);
 
   const { data: cameras } = useCameraList();
   const { data: objectTypes } = useObjectDetectionList();
@@ -293,6 +292,34 @@ const RuleForm = ({
           ))}
         </Select>
       </FormControl>
+
+      {formData.status === "scheduled" && (
+        <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+          <FormControl fullWidth>
+            <TextField
+              label="زمان شروع"
+              name="start_time"
+              type="time"
+              value={formData.start_time}
+              onChange={handleChange}
+              slotProps={{ inputLabel: { shrink: true } }}
+              required
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <TextField
+              label="زمان پایان"
+              name="end_time"
+              type="time"
+              value={formData.end_time}
+              onChange={handleChange}
+              slotProps={{ inputLabel: { shrink: true } }}
+              required
+            />
+          </FormControl>
+        </Box>
+      )}
 
       <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
         <Button

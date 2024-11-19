@@ -53,8 +53,20 @@ const CameraTable = () => {
                         <td className="border p-2">{camera.is_active ? "فعال" : "غیرفعال"}</td>
                         <td className="border p-2">{camera.description}</td>
                         <td className="border p-2">
-                            <button onClick={() => handleOpen(camera)} className="text-blue-500 hover:text-blue-700 ml-2"><FontAwesomeIcon icon={faEdit} /></button>
-                            <button onClick={() => handleDelete(camera.id!)} className="text-red-500 hover:text-red-700"><FontAwesomeIcon icon={faTrash} /></button>
+                            <button 
+                                onClick={() => handleOpen(camera)} 
+                                className="text-blue-500 hover:text-blue-700 ml-2" 
+                                title="ویرایش دوربین"
+                            >
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                            <button 
+                                onClick={() => handleDelete(camera.id!)} 
+                                className="text-red-500 hover:text-red-700" 
+                                title="حذف دوربین"
+                            >
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
                         </td>
                     </tr>
                 ))}

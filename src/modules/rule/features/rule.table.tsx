@@ -55,10 +55,18 @@ const RuleTable = () => {
                             <td className="border p-2">{rule.detection_interval || '-'}</td>
                             <td className="border p-2">{rule.notification_cooldown || '-'}</td>
                             <td className="border p-2">
-                                <button onClick={() => handleOpen(rule)} className="text-blue-500 hover:text-blue-700 ml-2">
+                                <button 
+                                    onClick={() => handleOpen(rule)} 
+                                    className="text-blue-500 hover:text-blue-700 ml-2" 
+                                    title="Edit Rule"
+                                >
                                     <FontAwesomeIcon icon={faEdit} />
                                 </button>
-                                <button onClick={() => handleDelete(rule.id!)} className="text-red-500 hover:text-red-700">
+                                <button 
+                                    onClick={() => handleDelete(rule.id!)} 
+                                    className="text-red-500 hover:text-red-700" 
+                                    aria-label="Delete Rule"
+                                >
                                     <FontAwesomeIcon icon={faTrash} />
                                 </button>
                             </td>
