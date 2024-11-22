@@ -14,8 +14,7 @@ const LoginForm = () => {
     password: "",
   };
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required("نام کاربری اجباری هست"),
+    username: Yup.string().required("نام کاربری اجباری هست"),
     password: Yup.string()
       .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
       .required("رمز عبور اجباری هست"),
@@ -87,7 +86,7 @@ const LoginForm = () => {
               whileTap={{ scale: 0.95 }}
               className="w-full px-4 py-3 mt-4 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50"
             >
-              {isSubmitting ? "Logging in..." : "Login"}
+              {isSubmitting ? "ورود..." : "ورود"}
             </motion.button>
           </Form>
         )}

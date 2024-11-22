@@ -11,33 +11,44 @@ interface SidebarItem {
 
 const sidebarItems: SidebarItem[] = [
   {
-    label: "داشبورد",
-    icon: <i className="fas fa-tachometer-alt" />,
-    route: "/stream",
+    label: "دوربین",
+    icon: <i className="fas fa-video" />,
+    route: "/camera",
   },
-  { label: "دوربین", icon: <i className="fas fa-camera" />, route: "/camera" },
   {
     label: "gpio",
-    icon: <i className="fas fa-bell" />,
+    icon: <i className="fas fa-microchip" />,
     route: "/gpio",
   },
   {
+    label: "پخش زنده",
+    icon: <i className="fas fa-play" />,
+    route: "/stream",
+  },
+  {
     label: "تشخیص اشیا",
-    icon: <i className="fas fa-bell" />,
+    icon: <i className="fas fa-box" />,
     route: "/object-detection",
   },
   {
     label: "تلگرام",
-    icon: <i className="fas fa-bell" />,
+    icon: <i className="fab fa-telegram" />,
     route: "/telegram",
   },
   {
     label: "تماس",
-    icon: <i className="fas fa-bell" />,
+    icon: <i className="fas fa-address-book" />,
     route: "/contact",
   },
-  { label: "قوانین", icon: <i className="fas fa-bell" />, route: "/rule" },
-  { label: "خروج", icon: <i className="fas fa-sign-out-alt" /> },
+  {
+    label: "قوانین",
+    icon: <i className="fas fa-gavel" />,
+    route: "/rule",
+  },
+  {
+    label: "خروج",
+    icon: <i className="fas fa-sign-out-alt" />,
+  },
 ];
 
 const Sidebar = () => {
@@ -45,7 +56,11 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const handleNavigation = (route?: string) => {
-    if (route) navigate(route);
+    if (route) {
+      navigate(route);
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -57,23 +72,27 @@ const Sidebar = () => {
       <motion.div
         initial={{ width: isOpen ? 250 : 80 }}
         animate={{ width: isOpen ? 250 : 80 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         className={clsx(
-          "fixed top-0 right-0 h-screen bg-gray-800 shadow-lg flex flex-col z-50",
+          "fixed top-0 right-0 h-screen bg-gradient-to-b from-gray-800 to-gray-900 shadow-xl flex flex-col z-50",
           { "overflow-hidden": !isOpen }
         )}
       >
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center p-4 border-b border-gray-700">
           <h2
-            className={clsx("text-white text-2xl font-bold", {
-              hidden: !isOpen,
-            })}
+            onClick={() => navigate("/")}
+            className={clsx(
+              "text-white text-2xl font-bold transition-opacity duration-300 cursor-pointer hover:text-gray-300",
+              {
+                "opacity-0": !isOpen,
+              }
+            )}
           >
             میزکار
           </h2>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white"
+            className="text-gray-400 hover:text-white transition-colors duration-200"
             title={isOpen ? "بستن منو" : "باز کردن منو"}
           >
             <i
@@ -83,17 +102,27 @@ const Sidebar = () => {
             />
           </button>
         </div>
-        <ul className="flex-grow">
+        <ul className="flex-grow py-2">
           {sidebarItems.map((item) => (
             <motion.li
               key={item.label}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.02, x: 6 }}
+              transition={{ duration: 0.2 }}
               onClick={() => handleNavigation(item.route)}
-              className="p-4 text-white cursor-pointer hover:bg-gray-700"
+              className="px-4 py-3 mx-2 my-1 text-gray-300 cursor-pointer rounded-lg hover:bg-gray-700/50 hover:text-white transition-colors duration-200"
             >
               <div className="flex items-center">
-                <div className="ml-4 text-xl">{item.icon}</div>
-                <span className={clsx({ hidden: !isOpen })}>{item.label}</span>
+                <div className={clsx("text-xl", { "mr-4": !isOpen })}>
+                  {item.icon}
+                </div>
+                <span
+                  className={clsx("mr-3 transition-opacity duration-300", {
+                    "opacity-0": !isOpen,
+                    hidden: !isOpen,
+                  })}
+                >
+                  {item.label}
+                </span>
               </div>
             </motion.li>
           ))}
